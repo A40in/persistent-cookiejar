@@ -285,7 +285,6 @@ func (j *Jar) cookies(u *url.URL, now time.Time) (cookies []*http.Cookie) {
 		//}
 		e.LastAccess = now
 		submap[id] = e
-		log.Println(e)
 		selected = append(selected, e)
 	}
 
