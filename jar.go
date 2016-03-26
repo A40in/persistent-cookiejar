@@ -261,6 +261,7 @@ func (j *Jar) cookies(u *url.URL, now time.Time) (cookies []*http.Cookie) {
 	}
 
 	https := u.Scheme == "https"
+	_ = https
 	path := u.Path
 	if path == "" {
 		path = "/"
@@ -279,11 +280,12 @@ func (j *Jar) cookies(u *url.URL, now time.Time) (cookies []*http.Cookie) {
 			}
 			continue
 		}
-		if !e.shouldSend(https, host, path) {
-			continue
-		}
+		//if !e.shouldSend(https, host, path) {
+		//	continue
+		//}
 		e.LastAccess = now
 		submap[id] = e
+		log.Println(e)
 		selected = append(selected, e)
 	}
 
@@ -574,9 +576,9 @@ func (j *Jar) domainAndType(host, domain string) (string, bool, error) {
 
 	// The domain must domain-match host: www.mycompany.com cannot
 	// set cookies for .ourcompetitors.com.
-	if host != domain && !hasDotSuffix(host, domain) {
-		return "", false, errIllegalDomain
-	}
+	//if host != domain && !hasDotSuffix(host, domain) {
+	//	return "", false, errIllegalDomain
+	//}
 
 	return domain, false, nil
 }
